@@ -1,0 +1,31 @@
+# xdg base dirs
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+
+# env vars
+export EDITOR=helix
+export VISUAL=helix
+
+export CARGO_HOME="$HOME/.local/share/cargo"
+command -v sccache &>/dev/null && export RUSTC_WRAPPER=sccache
+
+export MPD_HOST="$XDG_RUNTIME_DIR/mpd/socket"
+export MPD_PORT=6600
+
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/rbw/ssh-agent-socket"
+
+# path entries
+_prepend_path() {
+    [[ -d "$1" && ":$PATH:" != *":$1:"* ]] && PATH="$1:$PATH"
+}
+_prepend_path "$HOME/.local/bin"
+_prepend_path "$CARGO_HOME/bin"
+
+
+[[ -f ~/.bashrc ]] && . ~/.bashrc
+
+if [[ -z "$WAYLAND_DISPLAY" && "$(tty)" = "/dev/tty1" ]]; then
+  exec niri-session
+fi
