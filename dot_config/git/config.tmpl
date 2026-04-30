@@ -1,7 +1,7 @@
 [user]
-	name = {{ .name }}
-	email = {{ .email }}
-	signingkey = key::{{ .ssh_public_key }}
+	name = {{ .git.name }}
+	email = {{ .git.email }}
+	signingkey = {{ .git.signingkey }}
 [init]
 	defaultBranch = main
 [push]

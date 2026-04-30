@@ -1,9 +1,7 @@
-{{- $name := promptStringOnce . "name" "full name"  -}}
-{{- $email := promptStringOnce . "email" "email address" -}}
-{{- $ssh_public_key := promptStringOnce . "ssh_public_key" "SSH public key (used for git)" -}}
-
-[data]
-name = {{ $name | quote }}
-email = {{ $email | quote }}
-ssh_public_key = {{ $ssh_public_key | quote }}
+[data.git]
+name = "Dhruv Deshpande"
+email = "dhrv.d@proton.me"
+{{- if eq .chezmoi.hostname "osmium" }}
+signingkey = "key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILM7RbFIgyj8JFVcmABTyl68DFrmvCLPRJrI/FimiNS7 dhrvd@osmium"
+{{- end }}
 
