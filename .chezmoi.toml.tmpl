@@ -1,0 +1,9 @@
+{{- $name := promptStringOnce . "name" "full name"  -}}
+{{- $email := promptStringOnce . "email" "email address" -}}
+{{- $ssh_public_key := promptStringOnce . "ssh_public_key" "SSH public key (used for git)" -}}
+
+[data]
+name = {{ $name | quote }}
+email = {{ $email | quote }}
+ssh_public_key = {{ $ssh_public_key | quote }}
+
