@@ -1,0 +1,15 @@
+[user]
+	name = {{ .name }}
+	email = {{ .email }}
+	signingkey = key::{{ .ssh_public_key }}
+[init]
+	defaultBranch = main
+[push]
+	autoSetupRemote = true
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
+
