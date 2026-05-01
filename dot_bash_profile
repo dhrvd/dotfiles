@@ -14,7 +14,7 @@ command -v sccache &>/dev/null && export RUSTC_WRAPPER=sccache
 export MPD_HOST="$XDG_RUNTIME_DIR/mpd/socket"
 export MPD_PORT=6600
 
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/rbw/ssh-agent-socket"
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 # path entries
 _prepend_path() {
