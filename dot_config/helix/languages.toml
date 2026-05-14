@@ -1,0 +1,28 @@
+[language-server.deno-language-server]
+command = "deno"
+args = ["lsp"]
+required-root-patterns = ["deno.json", "deno.jsonc"]
+
+[[language]]
+name = "javascript"
+file-types = ["js", "jsx"]
+language-servers = ["deno-language-server"]
+
+[[language]]
+name = "kdl"
+indent = { tab-width = 4, unit = "    " }
+
+[[language]]
+name = "python"
+auto-format = true
+
+[[language]]
+name = "typescript"
+file-types = ["ts", "tsx"]
+language-servers = ["deno-language-server"]
+
+[[language]]
+name = "vento"
+file-types = ["vto"]
+auto-format = true
+formatter = { command = "deno", args = ["fmt", "--ext", "vto", "-"] }
