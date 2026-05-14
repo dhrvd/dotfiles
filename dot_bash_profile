@@ -23,9 +23,8 @@ _prepend_path() {
 _prepend_path "$HOME/.local/bin"
 _prepend_path "$CARGO_HOME/bin"
 
-
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
 if [[ -z "$WAYLAND_DISPLAY" && "$(tty)" = "/dev/tty1" ]]; then
-  exec niri-session
+  exec niri-session -l
 fi
