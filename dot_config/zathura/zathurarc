@@ -1,0 +1,11 @@
+set window-title-basename "true"
+set selection-clipboard clipboard
+set render-loading true
+
+set font "'Geist Mono' 12"
+
+set database sqlite
+set adjust-open width
+set recolor true
+
+include flexoki-dark
