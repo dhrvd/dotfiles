@@ -1,0 +1,16 @@
+Host *
+    AddKeysToAgent yes
+
+Host codeberg.org
+    Hostname codeberg.org
+    User git
+    IdentityFile ~/.ssh/dhrvd@osmium
+    IdentitiesOnly yes
+    AddressFamily inet
+
+Host tangled.org
+    Hostname tangled.org
+    User git
+    IdentityFile ~/.ssh/dhrvd@osmium_tangled
+    IdentitiesOnly yes
+    AddressFamily inet
