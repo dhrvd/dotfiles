@@ -125,11 +125,11 @@ binds {
     Mod+D { spawn "fuzzel"; }
     Mod+W { spawn "fuzzel-iwmenu.sh"; }
     Mod+B { spawn "fuzzel-bzmenu.sh"; }
-    Mod+X { spawn "fuzzel-powermenu.sh"; }
     Mod+V { spawn-sh "fuzzel-clipvault.sh"; }
+    Mod+Shift+Q { spawn "fuzzel-powermenu.sh"; }
 
     // screenshot
-    Print { screenshot; }
+    Print { screenshot show-pointer=false; }
     Mod+Print { screenshot-screen; }
     Mod+Shift+Print { screenshot-window; }
 
