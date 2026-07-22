@@ -1,6 +1,6 @@
 spawn-at-startup "awww-daemon"
 spawn-at-startup "foot" "--server"
-spawn-at-startup "wl-paste" "--watch" "clipvault" "store"
+spawn-at-startup "vicinae" "server"
 
 prefer-no-csd
 screenshot-path "~/pictures/screenshots/%Y-%m-%d_%H:%M:%S.png"
@@ -85,6 +85,15 @@ overview {
     }
 }
 
+layer-rule {
+    match namespace="vicinae"
+
+    background-effect {
+        blur true
+        xray false
+    }
+}
+
 window-rule {
     geometry-corner-radius 6
     clip-to-geometry true
@@ -122,11 +131,12 @@ binds {
     Mod+Return { spawn "footclient"; }
 
     // utilities
-    Mod+D { spawn "fuzzel"; }
-    Mod+W { spawn "fuzzel-iwmenu.sh"; }
-    Mod+B { spawn "fuzzel-bzmenu.sh"; }
-    Mod+V { spawn-sh "fuzzel-clipvault.sh"; }
-    Mod+Shift+Q { spawn "fuzzel-powermenu.sh"; }
+    Mod+D { spawn "vicinae" "open"; }
+    Mod+W { spawn "vicinae" "vicinae://launch/@dagimg-dot/store.vicinae.wifi-commander"; }
+    Mod+V { spawn "vicinae" "vicinae://launch/clipboard/history"; }
+    Mod+B { spawn "vicinae" "vicinae://launch/@Gelei/store.vicinae.bluetooth"; }
+    Mod+E repeat=false { spawn "vicinae" "vicinae://launch/core/search-emojis"; }
+    Mod+Shift+Q { spawn "vicinae" "vicinae://launch/power"; }
 
     // screenshot
     Print { screenshot show-pointer=false; }
