@@ -1,6 +1,13 @@
 Host *
     AddKeysToAgent yes
 
+Host github.com
+    Hostname github.com
+    User git
+    IdentityFile ~/.ssh/dhrvd@osmium
+    IdentitiesOnly yes
+    AddressFamily inet
+
 Host codeberg.org
     Hostname codeberg.org
     User git
