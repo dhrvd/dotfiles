@@ -1,6 +1,6 @@
 spawn-at-startup "awww-daemon"
 spawn-at-startup "foot" "--server"
-spawn-at-startup "vicinae" "server"
+spawn-at-startup "wl-paste" "--watch" "clipvault" "store"
 
 prefer-no-csd
 screenshot-path "~/pictures/screenshots/%Y-%m-%d_%H:%M:%S.png"
@@ -51,7 +51,7 @@ layout {
     }
     border {
         on
-        width 2
+        width 1
         inactive-color "#282726"
         active-color "#8B7EC8"
     }
@@ -75,7 +75,6 @@ layout {
 }
 
 overview {
-    zoom 0.5
     backdrop-color "#1C1B1A"
     workspace-shadow {
         on
@@ -85,31 +84,23 @@ overview {
     }
 }
 
-layer-rule {
-    match namespace="vicinae"
-
-    background-effect {
-        blur true
-        xray false
-    }
-}
-
 window-rule {
-    geometry-corner-radius 6
+    geometry-corner-radius 3
     clip-to-geometry true
 }
 
 window-rule {
     match app-id="vesktop"
     match app-id="imv"
-    match app-id="com.gabm.satty"
     match app-id="org.gnome.Nautilus"
+    match app-id="zen" title="^Extension:"
 
     open-floating true
 }
 
 window-rule {
     match app-id="vesktop"
+
     open-focused false
 }
 
@@ -120,8 +111,10 @@ window-rule {
 }
 
 window-rule {
-    match app-id="vivaldi-stable"
-    match app-id="obsidian"
+    match app-id="zen"
+    match app-id="md.Obsidian"
+    match app-id="org.mozilla.Thunderbird"
+    match app-id="Spotify"
 
     open-maximized true
 }
@@ -131,12 +124,11 @@ binds {
     Mod+Return { spawn "footclient"; }
 
     // utilities
-    Mod+D { spawn "vicinae" "open"; }
-    Mod+W { spawn "vicinae" "vicinae://launch/@dagimg-dot/store.vicinae.wifi-commander"; }
-    Mod+V { spawn "vicinae" "vicinae://launch/clipboard/history"; }
-    Mod+B { spawn "vicinae" "vicinae://launch/@Gelei/store.vicinae.bluetooth"; }
-    Mod+E repeat=false { spawn "vicinae" "vicinae://launch/core/search-emojis"; }
-    Mod+Shift+Q { spawn "vicinae" "vicinae://launch/power"; }
+    Mod+D { spawn "fuzzel"; }
+    Mod+W { spawn "fuzzel-iwmenu.sh"; }
+    Mod+B { spawn "fuzzel-bzmenu.sh"; }
+    Mod+V { spawn-sh "fuzzel-clipvault.sh"; }
+    Mod+Shift+Q { spawn "fuzzel-powermenu.sh"; }
 
     // screenshot
     Print { screenshot show-pointer=false; }
@@ -145,10 +137,10 @@ binds {
 
     // volume
     XF86AudioRaiseVolume allow-when-locked=true {
-        spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"
+        spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0"
     }
     XF86AudioLowerVolume allow-when-locked=true {
-        spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"
+        spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"
     }
     XF86AudioMute allow-when-locked=true {
         spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
