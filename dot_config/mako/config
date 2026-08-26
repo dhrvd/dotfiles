@@ -1,11 +1,12 @@
 font=Geist
 background-color=#100F0FFF
+
 text-color=#CECDC3FF
 border-size=1
 border-radius=3
 padding=6
 max-icon-size=108
-icon-border-radius=6
+icon-border-radius=3
 default-timeout=6000
 
 [urgency=low]
