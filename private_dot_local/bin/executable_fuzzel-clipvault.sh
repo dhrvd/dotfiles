@@ -29,7 +29,7 @@ match(\$0, /^([0-9]+)\s\[\[\sbinary.*(jpg|jpeg|png|bmp|webp|tif|gif)/, grp) {
 1
 EOF
 
-choice=$(echo "$list" | gawk "$prog" | fuzzel -d --placeholder "Clipboard" --counter --no-sort --with-nth 2)
+choice=$(echo "$list" | gawk "$prog" | fuzzel -d -p "clipboard: " --placeholder "Type to filter" --counter --no-sort --with-nth 2)
 exit_code=$?
 
 # Custom keybinds (configured in your `fuzzel.ini`) used below for different actions.
