@@ -1,5 +1,6 @@
 spawn-at-startup "awww-daemon"
 spawn-at-startup "foot" "--server"
+spawn-at-startup "qs"
 spawn-at-startup "wl-paste" "--watch" "clipvault" "store"
 
 prefer-no-csd
@@ -84,6 +85,16 @@ overview {
     }
 }
 
+layer-rule {
+    match namespace="^launcher$"
+    match namespace="quickshell:bar"
+
+    background-effect {
+        blur true
+        xray false
+    }
+}
+
 window-rule {
     geometry-corner-radius 3
     clip-to-geometry true
@@ -93,7 +104,6 @@ window-rule {
     match app-id="vesktop"
     match app-id="imv"
     match app-id="org.gnome.Nautilus"
-    match app-id="zen" title="^Extension:"
 
     open-floating true
 }
