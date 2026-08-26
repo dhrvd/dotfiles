@@ -1,0 +1,77 @@
+default:
+  enable_loginctl_integration false
+  enable_dbus_inhibit true
+  pre_suspend_command None
+  monitor_media true
+  ignore_remote_media true
+
+  debounce_seconds 4
+  notify_on_unpause true
+  notify_before_action true
+
+  lid_close_action "gtklock && niri msg action power-off-monitors"
+  lid_open_action "niri msg action power-on-monitors"
+
+  inhibit_apps [
+    "vlc"
+    "mpv"
+    r"steam_app_.*"
+    r".*\.exe"
+  ]
+
+  ac:
+    brightness:
+      timeout 180
+      command "brightnessctl set 40%"
+    end
+
+    lock_screen:
+      timeout 120
+      command "gtklock"
+
+      notification "Locking soon"
+      notification_icon "dialog-warning"
+      notify_seconds_before 10
+    end
+
+    dpms:
+      timeout 180
+      command "niri msg action power-off-monitors"
+      resume_command "niri msg action power-on-monitors"
+    end
+
+
+    suspend:
+      timeout 600
+      command "systemctl suspend"
+    end
+  end
+
+  battery:
+    brightness:
+      timeout 60
+      command "brightnessctl set 30%"
+    end
+
+
+    lock_screen:
+      timeout 30
+      command "gtklock"
+
+      notification "Locking soon"
+      notification_icon "dialog-warning"
+      notify_seconds_before 10
+    end
+
+    dpms:
+      timeout 60
+      command "niri msg action power-off-monitors"
+      resume_command "niri msg action power-on-monitors"
+    end
+
+    suspend:
+      timeout 120 
+      command "systemctl suspend"
+    end
+  end
+end
