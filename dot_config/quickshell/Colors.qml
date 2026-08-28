@@ -18,4 +18,5 @@ Singleton {
     readonly property color ye: "#D0A215"
     readonly property color gr: "#879A39"
     readonly property color cy: "#3AA99F"
+    readonly property color pu: "#8B7EC8"
 }

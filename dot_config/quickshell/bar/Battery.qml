@@ -31,11 +31,11 @@ Item {
             height: parent.height
             width: parent.width * root.percentage / 100
             color: {
-                if (root.charging) return Colors.cy
-                if (root.percentage == 100) return Colors.tx
-                if (root.percentage <= 20) return Colors.re
-                if (root.percentage <= 40) return Colors.ye
-                return Colors.gr
+                if (root.percentage <= 20)
+                    return Colors.re;
+                if (root.percentage <= 40)
+                    return Colors.ye;
+                return Colors.tx;
             }
         }
     }
@@ -62,31 +62,26 @@ Item {
         }
     }
 
-    Row {
-        id: content
+    Text {
+        anchors.verticalCenter: capacityClip.verticalCenter
+        anchors.left: capacityClip.right
+        anchors.leftMargin: -5
 
+        visible: root.charging
+
+        text: ""
+        color: Colors.tx
+        font.family: "Phosphor-Fill"
+        font.pixelSize: 16
+    }
+
+    Text {
         anchors.centerIn: capacityClip
-        spacing: -1
 
-        Text {
-            anchors.verticalCenter: parent.verticalCenter
+        text: root.percentage
+        color: Colors.bg
 
-            text: root.percentage
-            color: Colors.bg
-
-            font.pixelSize: 18
-            font.weight: Font.Medium
-        }
-
-        Text {
-            anchors.verticalCenter: parent.verticalCenter
-
-            visible: root.charging
-
-            text: ""
-            color: Colors.bg
-            font.family: "Phosphor-Fill"
-            font.pixelSize: 12
-        }
+        font.pixelSize: 18
+        font.weight: Font.Medium
     }
 }

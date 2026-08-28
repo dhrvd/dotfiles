@@ -19,13 +19,24 @@ PanelWindow {
     }
 
     implicitHeight: 36
-    color: Qt.alpha(Colors.bg, 0.5)
+    color: Qt.alpha(Colors.bg, 0.6)
+
+    RowLayout {
+        id: barLeft
+
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+
+        anchors.leftMargin: 12
+        spacing: 24
+
+        Workspaces {}
+    }
 
     RowLayout {
         id: barRight
 
         anchors.right: parent.right
-        anchors.bottom: parent.bottom
         anchors.verticalCenter: parent.verticalCenter
 
         anchors.rightMargin: 12
