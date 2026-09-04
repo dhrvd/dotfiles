@@ -14,14 +14,6 @@ Row {
     readonly property int percentage: Math.round((root.battery?.percentage ?? 0) * 100)
     readonly property bool isCharging: battery?.state === UPowerDeviceState.Charging || battery?.state === UPowerDeviceState.FullyCharged || battery?.state === UPowerDeviceState.Unknown
 
-    readonly property color capacityColor: {
-        if (root.percentage <= 20)
-            return Colors.re;
-        if (root.percentage <= 40)
-            return Colors.ye;
-        return Colors.tx;
-    }
-
     Item {
         id: icon
         anchors.verticalCenter: parent.verticalCenter
@@ -40,75 +32,37 @@ Row {
             border.width: 1
             radius: 4
 
-            Canvas {
+            Rectangle {
                 id: capacity
-                anchors.fill: parent
+
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+
                 anchors.margins: 1
+                width: (outline.implicitWidth - anchors.margins * 2) * root.percentage / 100
+                radius: outline.radius - anchors.margins
 
-                readonly property real ratio: root.percentage / 100
-                readonly property color fillColor: root.capacityColor
-                readonly property bool charging: root.isCharging
-                readonly property real cornerRadius: Math.max(0, outline.radius - anchors.margins)
-
-                onRatioChanged: requestPaint()
-                onFillColorChanged: requestPaint()
-                onChargingChanged: requestPaint()
-                onWidthChanged: requestPaint()
-                onHeightChanged: requestPaint()
-                Component.onCompleted: requestPaint()
-
-                onPaint: {
-                    const ctx = getContext("2d");
-                    ctx.clearRect(0, 0, width, height);
-
-                    const fillWidth = width * ratio;
-
-                    function roundedRectPath(x, y, w, h, r) {
-                        const radius = Math.max(0, Math.min(r, w / 2, h / 2));
-                        ctx.beginPath();
-                        ctx.moveTo(x + radius, y);
-                        ctx.lineTo(x + w - radius, y);
-                        ctx.arcTo(x + w, y, x + w, y + radius, radius);
-                        ctx.lineTo(x + w, y + h - radius);
-                        ctx.arcTo(x + w, y + h, x + w - radius, y + h, radius);
-                        ctx.lineTo(x + radius, y + h);
-                        ctx.arcTo(x, y + h, x, y + h - radius, radius);
-                        ctx.lineTo(x, y + radius);
-                        ctx.arcTo(x, y, x + radius, y, radius);
-                        ctx.closePath();
-                    }
-
-                    if (fillWidth > 0 && height > 0) {
-                        ctx.save();
-                        roundedRectPath(0, 0, fillWidth, height, cornerRadius);
-                        ctx.clip();
-                        ctx.fillStyle = fillColor;
-                        ctx.fillRect(0, 0, fillWidth, height);
-                        ctx.restore();
-                    }
-
-                    if (charging) {
-                        const cx = width / 2;
-                        const cy = height / 2 + 1;
-
-                        ctx.save();
-                        ctx.globalCompositeOperation = "destination-out";
-                        ctx.fillStyle = "black";
-                        ctx.textAlign = "center";
-                        ctx.textBaseline = "middle";
-                        ctx.font = `${height + 4}px "${Config.fontIcon}"`;
-                        ctx.fillText("\ue2de", cx, cy);
-                        ctx.restore();
-
-                        ctx.save();
-                        ctx.fillStyle = Colors.tx;
-                        ctx.textAlign = "center";
-                        ctx.textBaseline = "middle";
-                        ctx.font = `${height}px "${Config.fontIcon}"`;
-                        ctx.fillText("\ue2de", cx, cy);
-                        ctx.restore();
-                    }
+                color: {
+                    if (root.percentage <= 20)
+                        return Colors.re;
+                    if (root.percentage <= 40)
+                        return Colors.ye;
+                    return Colors.tx;
                 }
+            }
+
+            Text {
+                anchors.centerIn: parent
+
+                visible: root.isCharging
+                text: ""
+                color: Colors.tx
+                style: Text.Outline
+                styleColor: Colors.bg
+
+                font.family: Config.fontIcon
+                font.pixelSize: 16
             }
         }
 
