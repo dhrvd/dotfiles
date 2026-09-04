@@ -1,12 +1,13 @@
 import QtQuick
 import QtQuick.Layouts
+
 import Quickshell
 import Quickshell.Wayland
 
-import qs
+import qs.modules
+import qs.services
 
 PanelWindow {
-    id: barWindow
     WlrLayershell.namespace: "quickshell:bar"
 
     required property var modelData
@@ -22,8 +23,6 @@ PanelWindow {
     color: Qt.alpha(Colors.bg, 0.6)
 
     RowLayout {
-        id: barLeft
-
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
 
@@ -31,19 +30,18 @@ PanelWindow {
         spacing: 24
 
         Workspaces {}
+        FocusedWindow {}
     }
 
     RowLayout {
-        id: barRight
-
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
 
         anchors.rightMargin: 12
         spacing: 24
 
+        Volume {}
         Battery {}
         Clock {}
     }
 }
-

@@ -1,29 +1,20 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import Niri
 
-import qs
+import qs.services
 
 Row {
     id: root
 
-    anchors.verticalCenter: parent.verticalCenter
     spacing: 6
 
-    Niri {
-        id: niri
-        Component.onCompleted: connect()
-
-        onErrorOccurred: function (error) {
-            console.error("Niri error: ", error);
-        }
-    }
-
     Repeater {
-        model: niri.workspaces
+        model: Niri.workspaces
 
         delegate: Rectangle {
+            id: workspace
+
             required property var model
 
             readonly property bool isFocused: model.isFocused
@@ -35,35 +26,32 @@ Row {
             radius: 4
 
             color: {
-                if (isUrgent) {
-                    return Colors.re;
-                }
-                if (isFocused) {
-                    return Colors.tx;
-                }
-                if (isActive || model.activeWindowId > 0) {
-                    return Colors.tx2;
-                }
-                return Colors.tx3;
+                if (isUrgent)
+                    return Colors.re
+                if (isFocused)
+                    return Colors.tx
+                if (isActive || model.activeWindowId > 0)
+                    return Colors.tx2
+                return Colors.tx3
             }
 
             Behavior on implicitWidth {
                 NumberAnimation {
-                    duration: 150
+                    duration: Config.animationDuration
                     easing.type: Easing.OutQuint
                 }
             }
 
             Behavior on color {
                 ColorAnimation {
-                    duration: 150
+                    duration: Config.animationDuration
                 }
             }
 
             MouseArea {
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
-                onClicked: niri.focusWorkspaceById(parent.model.id)
+                onClicked: Niri.focusWorkspaceById(workspace.model.id)
             }
         }
     }
