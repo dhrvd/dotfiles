@@ -3,6 +3,9 @@ command = "deno"
 args = ["lsp"]
 required-root-patterns = ["deno.json", "deno.jsonc"]
 
+[language-server.qmlls]
+command = "qmlls6"
+
 [[language]]
 name = "javascript"
 file-types = ["js", "jsx"]
