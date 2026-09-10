@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import Quickshell.Services.UPower
 
@@ -24,13 +26,13 @@ Row {
         Rectangle {
             id: outline
 
-            implicitHeight: 15
+            implicitHeight: Config.fontSize * 5 / 6
             implicitWidth: implicitHeight * 2
             color: "transparent"
 
             border.color: Colors.tx2
             border.width: 1
-            radius: 4
+            radius: Math.round(implicitHeight / 4)
 
             Rectangle {
                 id: capacity
@@ -51,21 +53,7 @@ Row {
                     return Colors.tx;
                 }
             }
-
-            Text {
-                anchors.centerIn: parent
-
-                visible: root.isCharging
-                text: ""
-                color: Colors.tx
-                style: Text.Outline
-                styleColor: Colors.bg
-
-                font.family: Config.fontIcon
-                font.pixelSize: 16
-            }
         }
-
         Item {
             id: nubClip
 
@@ -73,6 +61,7 @@ Row {
             anchors.left: outline.right
             anchors.leftMargin: 1
 
+            visible: !root.isCharging
             implicitHeight: Math.round(parent.implicitHeight * 0.4)
             implicitWidth: implicitHeight / 2.5
             clip: true
@@ -84,6 +73,21 @@ Row {
                 color: Colors.tx2
                 x: -implicitWidth / 2
             }
+        }
+
+        Text {
+            anchors.left: outline.right
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.leftMargin: -font.pixelSize / 2
+
+            z: 1
+            visible: root.isCharging
+
+            text: "\ue2de"
+
+            shadowEnabled: false
+            font.family: Config.fontIcon
+            font.pixelSize: Config.fontSize - 2
         }
     }
 

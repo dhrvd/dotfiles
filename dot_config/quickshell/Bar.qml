@@ -19,28 +19,26 @@ PanelWindow {
         right: true
     }
 
-    implicitHeight: 36
-    color: Qt.alpha(Colors.bg, 0.6)
+    implicitHeight: Config.fontSize * 2
+    color: "transparent"
 
     RowLayout {
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
 
-        anchors.leftMargin: 12
-        spacing: 24
+        anchors.leftMargin: Config.fontSize  * 2 / 3
+        spacing: Config.fontSize * 4 / 3
 
         Workspaces {}
-        FocusedWindow {}
     }
 
     RowLayout {
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
 
-        anchors.rightMargin: 12
-        spacing: 24
+        anchors.rightMargin: Config.fontSize  * 4 / 3
+        spacing: Config.fontSize * 4 / 3
 
-        Volume {}
         Battery {}
         Clock {}
     }
