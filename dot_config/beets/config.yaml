@@ -1,0 +1,86 @@
+directory: ~/music
+library: ~/.config/beets/library.db
+
+ui:
+  color: yes
+
+import:
+  autotag: yes
+  write: yes
+  move: yes
+  group_albums: yes
+  default_action: apply
+  resume: yes
+  incremental: yes
+  quiet_fall_back: skip
+
+match:
+  strong_rec_thresh: 0.04
+  medium_rec_thresh: 0.25
+  rec_gap_thresh: 0.25
+
+plugins:
+  # autotagger
+  - chroma
+  - musicbrainz
+  - spotify
+
+  # metadata
+  - fetchart
+  - ftintitle
+  - lastgenre
+  - replaygain
+  - importreplace
+  - scrub
+
+  # interoperability
+  - badfiles
+  - fish
+
+  # misc
+  - duplicates
+  - missing
+  - info
+
+musicbrainz:
+  data_source_mismatch_penalty: 0.3
+
+spotify:
+  data_source_mismatch_penalty: 0.0
+
+chroma:
+  auto: yes
+
+importreplace:
+  replacements:
+    - item_fields: title artist artist_sort artist_credit
+      album_fields: album artist artist_sort artist_credit
+      replace:
+        '[\u2018-\u201B]': "'"
+        '[\u201C-\u201F]': '"'
+        '[\u2010-\u2015]': "-"
+
+replaygain:
+  backend: ffmpeg
+  overwrite: no
+  threads: 3
+  auto: yes
+
+fetchart:
+  auto: yes
+  minwidth: 500
+  maxwidth: 1400
+  sources:
+    - filesystem
+    - coverart: release
+    - itunes
+    - coverart: releasegroup
+    - "*"
+
+ftintitle:
+  format: "(feat. {0})"
+
+lastgenre:
+  auto: yes
+  count: 3
+  force: yes
