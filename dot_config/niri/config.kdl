@@ -87,12 +87,17 @@ overview {
 
 layer-rule {
     match namespace="^launcher$"
-    match namespace="quickshell:bar"
+
+    shadow {
+        on
+    }
 
     background-effect {
         blur true
         xray false
     }
+
+    geometry-corner-radius 3
 }
 
 window-rule {
@@ -137,7 +142,8 @@ binds {
     Mod+D { spawn "fuzzel"; }
     Mod+W { spawn "fuzzel-iwmenu.sh"; }
     Mod+B { spawn "fuzzel-bzmenu.sh"; }
-    Mod+V { spawn-sh "fuzzel-clipvault.sh"; }
+    Mod+V { spawn "fuzzel-clipvault.sh"; }
+    Mod+N { spawn "networkmanager_dmenu"; }
     Mod+Shift+Q { spawn "fuzzel-powermenu.sh"; }
 
     // screenshot
