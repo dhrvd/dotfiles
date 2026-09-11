@@ -17,8 +17,10 @@ border-color=#403E3C
 
 [urgency=critical]
 border-color=#D14D41
-default-timeout=0
+default-timeout=120000
 layer=overlay
 
-[app-name="poweralertd"]
-default-timeout=60000
+[app-name=niri summary="Screenshot captured"]
+on-button-left=exec file="$(ls -t "$HOME"/pictures/screenshots/*.png 2>/dev/null | head -n 1)"; [ -n "$file" ] && imv "$file" & makoctl dismiss
+on-button-right=exec file="$(ls -t "$HOME"/pictures/screenshots/*.png 2>/dev/null | head -n 1)"; [ -n "$file" ] && satty -f "$file" & makoctl dismiss
+

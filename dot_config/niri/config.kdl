@@ -118,6 +118,7 @@ window-rule {
     match app-id="vesktop"
     match app-id="imv"
     match app-id="org.gnome.Nautilus"
+    match app-id="com.gabm.satty"
 
     open-floating true
 }
