@@ -11,9 +11,4 @@ Singleton {
     readonly property string fontIcon: "Phosphor-Fill"
 
     readonly property int animationDuration: 150
-
-    readonly property bool shadowEnabled: true
-    readonly property int shadowVerticalOffset: 2
-    readonly property int blurMax: 36
-    readonly property real shadowOpacity: 0.8
 }

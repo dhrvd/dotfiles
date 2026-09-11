@@ -45,13 +45,7 @@ Row {
                 width: (outline.implicitWidth - anchors.margins * 2) * root.percentage / 100
                 radius: outline.radius - anchors.margins
 
-                color: {
-                    if (root.percentage <= 20)
-                        return Colors.re;
-                    if (root.percentage <= 40)
-                        return Colors.ye;
-                    return Colors.tx;
-                }
+                color: root.percentage <= 20 && !root.isCharging ? Colors.re : Colors.tx
             }
         }
         Item {
@@ -61,33 +55,29 @@ Row {
             anchors.left: outline.right
             anchors.leftMargin: 1
 
-            visible: !root.isCharging
             implicitHeight: Math.round(parent.implicitHeight * 0.4)
-            implicitWidth: implicitHeight / 2.5
-            clip: true
+            implicitWidth: root.isCharging ? implicitHeight : implicitHeight / 2.5
+            clip: !root.isCharging
 
             Rectangle {
                 implicitWidth: parent.implicitWidth * 2
                 implicitHeight: parent.implicitHeight
                 radius: 100
                 color: Colors.tx2
-                x: -implicitWidth / 2
+                x: root.isCharging ? 0 : -implicitWidth / 2
+                visible: !root.isCharging
             }
-        }
 
-        Text {
-            anchors.left: outline.right
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.leftMargin: -font.pixelSize / 2
+            Text {
+                anchors.centerIn: parent
+                anchors.leftMargin: 1
 
-            z: 1
-            visible: root.isCharging
+                text: "\ue2de"
 
-            text: "\ue2de"
-
-            shadowEnabled: false
-            font.family: Config.fontIcon
-            font.pixelSize: Config.fontSize - 2
+                font.family: Config.fontIcon
+                font.pixelSize: Config.fontSize - 4
+                visible: root.isCharging
+            }
         }
     }
 
