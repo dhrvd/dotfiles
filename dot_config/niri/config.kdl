@@ -1,6 +1,6 @@
 spawn-at-startup "awww-daemon"
 spawn-at-startup "foot" "--server"
-spawn-at-startup "qs"
+spawn-at-startup "noctalia"
 spawn-at-startup "wl-paste" "--watch" "clipvault" "store"
 
 prefer-no-csd
@@ -11,6 +11,7 @@ hotkey-overlay {
 }
 
 cursor {
+    xcursor-theme "macOS"
     hide-when-typing
     hide-after-inactive-ms 1500
 }
@@ -109,6 +110,26 @@ layer-rule {
     geometry-corner-radius 3
 }
 
+layer-rule {
+    match namespace="noctalia-window-switcher"
+    background-effect {
+        blur true
+        xray false
+    }
+}
+
+layer-rule {
+  match namespace="^noctalia-backdrop"
+  place-within-backdrop true
+}
+
+blur {
+  passes 3        // more passes = stronger blur (default: 3)
+  offset 3.0      // sample distance per pass (default: 3.0)
+  noise 0.03      // grain overlay (default: 0.02)
+  saturation 1.0  // color saturation boost (default: 1.5)
+}
+
 window-rule {
     geometry-corner-radius 3
     clip-to-geometry true
@@ -144,17 +165,31 @@ window-rule {
     open-maximized true
 }
 
+debug {
+  // Allows notification actions and window activation from Noctalia.
+  honor-xdg-activation-with-invalid-serial
+}
+
+window-rule {
+  match app-id="dev.noctalia.Noctalia"
+  open-floating true
+  default-column-width { fixed 1080; }
+  default-window-height { fixed 920; }
+}
+
 binds {
     // applications
     Mod+Return { spawn "footclient"; }
 
     // utilities
-    Mod+D { spawn "fuzzel"; }
+    Mod+D { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     Mod+W { spawn "fuzzel-iwmenu.sh"; }
     Mod+B { spawn "fuzzel-bzmenu.sh"; }
     Mod+V { spawn "fuzzel-clipvault.sh"; }
     Mod+N { spawn "networkmanager_dmenu"; }
-    Mod+Shift+Q { spawn "fuzzel-pwrmenu.sh"; }
+    Mod+Shift+Q { spawn "noctalia" "msg" "panel-toggle" "session"; }
+
+    // Mod+Ctrl+R for screen recording
 
     // screenshot
     Print { screenshot show-pointer=false; }
@@ -162,18 +197,9 @@ binds {
     Mod+Shift+Print { screenshot-window; }
 
     // volume
-    XF86AudioRaiseVolume allow-when-locked=true {
-        spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0"
-    }
-    XF86AudioLowerVolume allow-when-locked=true {
-        spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"
-    }
-    XF86AudioMute allow-when-locked=true {
-        spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-    }
-    XF86AudioMicMute allow-when-locked=true {
-        spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-    }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "noctalia msg volume-up"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "noctalia msg volume-down"; }
+    XF86AudioMute allow-when-locked=true { spawn-sh "noctalia msg volume-mute"; }
 
     // media
     XF86AudioPlay allow-when-locked=true { spawn-sh "playerctl play-pause";}
@@ -181,12 +207,8 @@ binds {
     XF86AudioNext allow-when-locked=true { spawn-sh "playerctl next"; }
 
     // brightness
-    XF86MonBrightnessUp allow-when-locked=true {
-        spawn "brightnessctl" "--class=backlight" "set" "+5%"
-    }
-    XF86MonBrightnessDown allow-when-locked=true {
-        spawn "brightnessctl" "--class=backlight" "set" "5%-"
-    }
+    XF86MonBrightnessUp allow-when-locked=true { spawn-sh "noctalia msg brightness-up"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn-sh "noctalia msg brightness-down"; }
 
     // meta
     Mod+Shift+Slash { show-hotkey-overlay; }
@@ -318,4 +340,5 @@ binds {
         switch-focus-between-floating-and-tiling
     }
 }
+
 
