@@ -1,0 +1,38 @@
+[[themes]]
+name = "flexoki dark"
+[themes.palette]
+foreground = "#CECDC3"
+black = "#100F0F"
+red = "#D14D41"
+green = "#879A39"
+yellow = "#D0A215"
+blue = "#4385BE"
+magenta = "#CE5D97"
+cyan = "#3AA99F"
+white = "#CECDC3"
+bright_black = "#878580"
+bright_red = "#D14D41"
+bright_green = "#879A39"
+bright_yellow = "#D0A215"
+bright_blue = "#4385BE"
+bright_magenta = "#CE5D97"
+bright_cyan = "#3AA99F"
+bright_white = "#B7B5AC"
+[themes.component_style]
+block_title = { fg = "Magenta" }
+border = { fg = "BrightWhite" }
+
+playback_status = { fg = "Cyan", modifiers = ["Bold"] }
+playback_track = { fg = "Cyan", modifiers = ["Bold"] }
+playback_artists = { fg = "Cyan", modifiers = ["Bold"] }
+playback_album = { fg = "Yellow", modifiers = [] }
+playback_metadata = { fg = "BrightBlack" }
+
+playback_progress_bar = { fg = "Green" }
+playback_progress_bar_unfilled = { fg = "#343331" }
+
+current_playing = { fg = "Yellow" }
+page_desc = { fg = "Blue", modifiers = [] }
+
+table_header = { fg = "Magenta" }
+selection = { fg = "Yellow", modifiers = ["Italic", "Bold"] }
