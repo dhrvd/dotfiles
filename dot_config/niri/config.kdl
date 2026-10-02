@@ -123,10 +123,15 @@ layer-rule {
 }
 
 blur {
-  passes 3        // more passes = stronger blur (default: 3)
-  offset 3.0      // sample distance per pass (default: 3.0)
-  noise 0.03      // grain overlay (default: 0.02)
-  saturation 1.0  // color saturation boost (default: 1.5)
+  passes 3
+  offset 3.0
+  noise 0.04
+  saturation 1.25
+}
+
+window-rule {
+    match app-id="zen"
+    draw-border-with-background false
 }
 
 window-rule {
@@ -179,11 +184,10 @@ window-rule {
 binds {
     // applications
     Mod+Return { spawn "footclient"; }
+    Mod+E { spawn "nautilus"; }
 
     // utilities
     Mod+D { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
-    Mod+W { spawn "fuzzel-iwmenu.sh"; }
-    Mod+B { spawn "fuzzel-bzmenu.sh"; }
     Mod+V { spawn "fuzzel-clipvault.sh"; }
     Mod+N { spawn "networkmanager_dmenu"; }
     Mod+Shift+Q { spawn "noctalia" "msg" "panel-toggle" "session"; }
