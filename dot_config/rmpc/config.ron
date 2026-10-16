@@ -1,0 +1,62 @@
+#![enable(implicit_some)]
+#![enable(unwrap_newtypes)]
+#![enable(unwrap_variant_newtypes)]
+(
+    theme: "flexoki-dark",
+    lyrics_dir: "~/music",
+    enable_lyrics_hot_reload: true,
+    enable_config_hot_reload: true,
+    volume_step: 5,
+    max_fps: 30,
+    status_update_interval_ms: 1000,
+    scrolloff: 3,
+    wrap_navigation: true,
+    enable_mouse: true,
+    select_current_song_on_change: false,
+    rewind_to_start_sec: 3,
+    cava: (
+        framerate: 30,
+        input: (
+            method: Fifo,
+            source: "/tmp/mpd.fifo",
+            sample_rate: 44100,
+            sample_bits: 16,
+            channels: 2,
+        ),
+    ),
+    album_art: (
+        method: Auto,
+        max_size_px: (width: 600, height: 600),
+        vertical_align: Top,
+        horizontal_align: Left,
+    ),
+    keybinds: (
+        global: {
+            "1": SwitchToTab("Queue"),
+            "2": SwitchToTab("Lyrics"),
+            "3": SwitchToTab("Genres"),
+            "4": SwitchToTab("Artists"),
+            "5": SwitchToTab("Albums"),
+            "6": SwitchToTab("Playlists"),
+            "7": SwitchToTab("Search"),
+            "8": SwitchToTab("Visualizer"),
+        },
+    ),
+    tabs: [
+        (name: "Queue", pane: Split(
+            direction: Vertical,
+            panes: [
+                (size: "1", pane: Component("queue_summary")),
+                (size: "1", pane: Pane(QueueHeader())),
+                (size: "100%", pane: Pane(Queue)),
+            ],
+        )),
+        (name: "Lyrics", pane: Pane(Lyrics)),
+        (name: "Genres", pane: Pane(Browser(root_tag: "genre", separator: None))),
+        (name: "Artists", pane: Pane(Artists)),
+        (name: "Albums", pane: Pane(Albums)),
+        (name: "Playlists", pane: Pane(Playlists)),
+        (name: "Search", pane: Pane(Search)),
+        (name: "Visualizer", pane: Pane(Cava)),
+    ],
+)
